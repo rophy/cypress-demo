@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>hello world</title>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+        <script>
+            function onClickDemo1() {
+                $("#demo1Textarea").val("loading...");
+                $.get("https://jsonplaceholder.cypress.io/users?_limit=1", (data, textStatus, jqXHR) => {
+                    console.log(jqXHR.status, data);
+                    try {
+                        data = JSON.stringify(data);
+                    } catch (ex) {}
+                    $("#demo1Textarea").val(jqXHR.status + " " + data);
+                });
+            }
+
+            function onClickDemo2() {
+                $("#demo2Textarea").val("loading...");
+                $.post("https://jsonplaceholder.cypress.io/posts", {
+                    userId: 123,
+                    title: 'Cypress Test Runner',
+                    body: 'Fast, easy and reliable testing for anything that runs in a browser.'
+                }, (data, textStatus, jqXHR) => {
+                    console.log(jqXHR.status, data);
+                    try {
+                        data = JSON.stringify(data);
+                    } catch (ex) {}
+                    $("#demo2Textarea").val(jqXHR.status + " " + data);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <section>
+            <h4>Demo 1</h4>
+            <p>GET https://jsonplaceholder.cypress.io/users?_limit=1</p>
+            <button onclick="onClickDemo1()">GET</button>
+            <input type="text" disabled="true" id="demo1Textarea"></textarea>
+        </section>
+        <section>
+            <h4>Demo 2</h4>
+            <p>POST https://jsonplaceholder.cypress.io/users?_limit=1</p>
+            <button onclick="onClickDemo2()">POST</button>
+            <input type="text" disabled="true" id="demo2Textarea"></textarea>
+        </section>
+    </body>
+
+</html>
